@@ -30,18 +30,45 @@ Time: 5/23/2022 4:32 PM
 链接：https://leetcode.cn/problems/longest-harmonious-subsequence
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+"""
+思路：哈希值方法
+哈希值方法其实就是字典的方法， 字典的困难之后在于寻找key和value的对应关系，
+这题目将，key是元素值， value是元素的个数
+
+"""
+from collections import Counter
+def findLHS_01(nums):
+    hash_map=Counter(nums)
+    return max(v+hash_map[k+1]if k+1 in hash_map else 0 for k,v in hash_map.items())
+
+
+"""同样是hash方法： 将列表中的元素作为key， 元素出现的次数作为value"""
+# def findLHS_02(nums):
+#     hash_map=defaultdict(int)
+#     ans=0
+#     for i in nums:
+#         hash_map[i]+=1
+#         if i+1 in hash_map:
+#             ans = max(ans,hash_map[i]+hash_map[i+1])
+#         if i-1 in hash_map:
+#             ans = max(ans,hash_map[i]+hash_map[i-1])
+#     return ans
+"""
+思路：左右指针加上滑动窗口
+左右指针的困难之处在于确定指针指向之处。 该题目是寻求最大和谐子序列，
+左边begin指向初始值， 右边end指向比初始值+1的最后一个元素。那么最大长度就是end-begin+1。
+"""
 def findLHS(nums):
-    res=[]
-    hash_map={}
-    for i in nums:
-        if i+1 in nums:
-            hash_map[i]=i+1
-    if hash_map=={}:
-        return 0
-    for k,v in hash_map.items():
-        res.append(nums.count(k)+nums.count(v))
-    return max(res)
+    nums.sort()
+    res, begin = 0, 0
+    for end in range(len(nums)):
+        if nums[end] - nums[begin] > 1:
+            begin += 1
+        if nums[end] - nums[begin] == 1:
+            res = max(res, end - begin + 1)
+    return res
 
 if __name__=="__main__":
-    nums=[2,2,2]
-    print(findLHS(nums))
+    nums=[1,2,2,3,3,3]
+    #print(findLHS_01(nums))
+    print(findLHS_01(nums))
