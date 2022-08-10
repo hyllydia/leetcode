@@ -34,11 +34,37 @@ def intersect(n1,n2):
             res.append(j)
 
     print(res)
-
-
+"""哈希值法"""
+def intersect_hash01(nums1,nums2):
+    res=[]
+    hash_map1={}
+    hash_map2={}
+    for i in nums1:
+        hash_map1[i]=hash_map1.get(i,0)+1
+    for j in nums2:
+        hash_map2[j]=hash_map2.get(j,0)+1
+    for k,v in hash_map1:
+        if k in hash_map2:
+            x=v if v<=hash_map2[k] else hash_map2[k]
+            for m in range(x):
+                res.append(k)
+    return res
+def intersect_hash02(nums1,nums2):
+    ans=[]
+    d={}
+    for i in nums1:
+        d[i]=d.get(i,0)+1
+    for j in nums2:
+        if j in d:
+            d[j]=d.get(j)-1
+            if d[j]==0:
+                d.pop(j)#d.pop()的用法
+            ans.append(j)
+    return ans
 if __name__=="__main__":
-    nums1=[1,2,2,1]
-    nums2=[2,2]
-    # nums1=[4,9,5]
-    # nums2=[9,4,9,8,4]
-    intersect(nums1,nums2)
+    # nums1=[1,2,2,1]
+    # nums2=[2,2]
+    nums1=[4,9,5,4,9]
+    nums2=[9,4,9,8,4]
+    #intersect(nums1,nums2)
+    print(intersect_hash02(nums1,nums2))

@@ -42,6 +42,7 @@ def findLHS_01(nums):
     return max(v+hash_map[k+1]if k+1 in hash_map else 0 for k,v in hash_map.items())
 
 
+
 """同样是hash方法： 将列表中的元素作为key， 元素出现的次数作为value"""
 # def findLHS_02(nums):
 #     hash_map=defaultdict(int)
