@@ -1,4 +1,4 @@
-#coding:utf-8
+    #coding:utf-8
 """
 Author:Hou Yuling
 Time:11/16/2021 2:24 PM
@@ -13,6 +13,7 @@ def func1(nums,target):
     for i,j in enumerate(nums):
         if target-j in d.keys():
             return [d[target-j]+1,i+1]
+            #return [i,d[target-j]]
         d[j]=i
 if __name__=="__main__":
     print(func1([0,0,3,4],0))

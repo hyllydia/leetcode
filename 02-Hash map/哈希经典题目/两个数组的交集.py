@@ -24,3 +24,6 @@
 说明： 输出结果中的每个元素一定是唯一的。 我们可以不考虑输出结果的顺序。
 
 """
+#去重set
+def func():
+    return list(set(nums1)&set(nums2))
